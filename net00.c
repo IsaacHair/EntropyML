@@ -13,6 +13,7 @@ struct node {
 
 void main() {
   link();
+  test();
 }
 
 void link() {
@@ -53,4 +54,13 @@ void link() {
       network[pos0].parent[set] = &network[pos1];
       network[pos1].child[set] = &network[pos0];
     }
+}
+
+void test() {
+  int i, set;
+  
+  for (set = 0; set < 3; set++)
+    for (i = 0; i < 100; i++)
+      if (&(network[i]) != (network[i].parent[set])->child[set])
+        printf("link failure for parent of set %d index %d\n", set, i);
 }
