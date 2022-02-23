@@ -11,11 +11,6 @@ struct node {
   int density1[1024][64];
 } network[100];
 
-void main() {
-  link();
-  test();
-}
-
 void link() {
   time_t t;
   char used[100];
@@ -28,9 +23,9 @@ void link() {
   int set;
   srand((unsigned) time(&t));
   
-  for (counter = 0; counter < 100; counter++)
-    used[counter] = 0;
-  for (set = 0; set < 3; set++, printf("out set=%dnow\n", set)) {
+  for (set = 0; set < 3; set++) {
+    for (counter = 0; counter < 100; counter++)
+      used[counter] = 0;
     for (remaining = 100; remaining > 0;) {
       choice0 = rand() % remaining;
       for (counter = choice0+1, pos0 = 0; 1; pos0++) {
@@ -50,11 +45,10 @@ void link() {
       }
       used[pos1] = 1;
       remaining--;
-      
+
       network[pos0].parent[set] = &network[pos1];
       network[pos1].child[set] = &network[pos0];
       
-                    printf("yep %d\n", remaining);
     }
   }
 }
@@ -66,4 +60,9 @@ void test() {
       if (&(network[i]) != (network[i].parent[set])->child[set])
         printf("link failure for parent of set %d index %d\n", set, i);
   printf("test complete\n");
+}
+
+void main() {
+  link();
+  test();
 }
