@@ -65,4 +65,5 @@ void test() {
 void main() {
   link();
   test();
+  printf("done\n");
 }
