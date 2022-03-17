@@ -18,7 +18,7 @@ void link() {
   int idx;
   int node;
   int set;
-  int tempChildAmount;
+  int tempChildDrift;
   int tempChildLocation;
   srand((unsigned) time(&t));
   
@@ -27,8 +27,8 @@ void link() {
   amountLeft = 300;
   for (node = 0; node < 100; node++)
     for (set = 0; set < 3; set++) {
-      tempChildAmount = rand()%amountLeft;
-      tempChildLocation = tempChildAmount; //abusing this to count
+      tempChildDrift = rand()%amountLeft;
+      tempChildLocation = tempChildDrift; //abusing this to count
       for (idx = 0; idx < 300; idx++) {
         if (!used[tempChildLocation])
           tempChildLocation--;
@@ -44,7 +44,11 @@ void link() {
 }
 
 void test() {
-  
+  int node;
+  int set;
+  for (node = 0; node < 100; node++)
+    for (set = 0; set < 3; set++)
+      printf("%d.%d: %d goes to %d and is from %d or %d or %d\n", node, set, &network[node], network[node].child[set], network[node].child[set]->parent[0], network[node].child[set]->parent[1], network[node].child[set]->parent[2]);
 }
 
 void main() {
