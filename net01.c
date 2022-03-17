@@ -4,8 +4,8 @@
 struct node {
   struct node *parent[3];
   struct node *child[3];
-  enum {NAND, XOR, TRANS, ROT, SCALE, IFELSE, REG0, REG1, REG2, REG3, ADD, SUB} type;
-  int* weights; //include fuzzy memory as well
+  enum {NAND, XOR, TRANS, ROT, SCALE, IFELSE, REG0, REG1, REG2, REG3, ADD, SUB} type; //12 types
+  float weights[10]; //include fuzzy memory as well
   int grid[256][256];
   int density0[1024][64];
   int density1[1024][64];
@@ -57,8 +57,19 @@ void test() {
   printf("errors=%d\n", errors);
 }
 
+void assign() {
+  int node;
+  int i;
+  for (node = 0; node < 100; node++) {
+    network[node].type = rand()%12;
+    for (i = 0; i < 10; i++)
+      network[node].weights[i] = (float) rand() / 65536;
+  }
+}
+
 void main() {
   link();
   test();
+  assign();
   printf("done\n");
 }
