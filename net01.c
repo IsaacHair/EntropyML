@@ -50,7 +50,7 @@ void test() {
   errors = 0;
   for (node = 0; node < 100; node++)
     for (set = 0; set < 3; set++) {
-      printf("%d.%d: %d goes to %d and is from %d or %d or %d\n", node, set, &network[node], network[node].child[set], network[node].child[set]->parent[0], network[node].child[set]->parent[1], network[node].child[set]->parent[2]);
+      printf("%d.%d: %d goes to %d which is from %d or %d or %d\n", node, set, &network[node], network[node].child[set], network[node].child[set]->parent[0], network[node].child[set]->parent[1], network[node].child[set]->parent[2]);
       if ((&network[node] != network[node].child[set]->parent[0]) && (&network[node] != network[node].child[set]->parent[1]) && (&network[node] != network[node].child[set]->parent[2]))
         errors++;
     }
