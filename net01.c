@@ -30,7 +30,7 @@ void link() {
       tempChildDrift = rand()%amountLeft;
       tempChildLocation = tempChildDrift; //abusing this to count
       for (idx = 0; idx < 300; idx++) {
-        if (!used[tempChildLocation])
+        if (!used[idx])
           tempChildLocation--;
         if (tempChildLocation < 0)
           break;
@@ -46,9 +46,15 @@ void link() {
 void test() {
   int node;
   int set;
+  int errors;
+  errors = 0;
   for (node = 0; node < 100; node++)
-    for (set = 0; set < 3; set++)
+    for (set = 0; set < 3; set++) {
       printf("%d.%d: %d goes to %d and is from %d or %d or %d\n", node, set, &network[node], network[node].child[set], network[node].child[set]->parent[0], network[node].child[set]->parent[1], network[node].child[set]->parent[2]);
+      if ((&network[node] != network[node].child[set]->parent[0]) && (&network[node] != network[node].child[set]->parent[1]) && (&network[node] != network[node].child[set]->parent[2]))
+        errors++;
+    }
+  printf("errors=%d\n", errors);
 }
 
 void main() {
