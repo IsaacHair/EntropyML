@@ -12,7 +12,6 @@ struct node {
 } network[100];
 
 void link() {
-  time_t t;
   char used[300]; //divide index by 3 with truncation to get corresponding node
   int amountLeft;
   int idx;
@@ -20,7 +19,6 @@ void link() {
   int set;
   int tempChildDrift;
   int tempChildLocation;
-  srand((unsigned) time(&t));
   
   for (idx = 0; idx < 300; idx++)
     used[idx] = 0;
@@ -59,17 +57,35 @@ void test() {
 
 void assign() {
   int node;
-  int i;
+  int i, j;
   for (node = 0; node < 100; node++) {
     network[node].type = rand()%12;
     for (i = 0; i < 10; i++)
       network[node].weights[i] = (float) rand() / 65536;
+    for (i = 0; i < 256; i++)
+      for (j = 0; j < 256; j++)
+        network[node].grid[i][j] = rand();
   }
 }
 
+void tick(int startgrid[256][256]) {
+  int node;
+  for (node = 0; node < 100; node++)
+    1; //add a switch for the different node types and each function for those types
+}
+
 void main() {
+  int startgrid[256][256]; //this is just a sample input image
+  int i, j;
+  time_t t;
+  srand((unsigned) time(&t));
+  for (i = 0; i < 256; i++)
+    for (j = 0; j < 256; j++)
+      startgrid[i][j] = rand();
+  
   link();
   test();
   assign();
+  tick(startgrid);
   printf("done\n");
 }
